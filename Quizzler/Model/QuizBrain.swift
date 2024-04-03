@@ -16,13 +16,20 @@ struct QuizBrain {
                 Question(q: "In \"Star Trek\", Klingons are aliens.", a: "True")]
 
     var questionNumber = 0
+    
+    var score = 0
 
-    func checkAnswer(_ userAnswer: String) -> Bool {
+    mutating func checkAnswer(_ userAnswer: String) -> Bool {
         if userAnswer == quiz[questionNumber].answer {
+            score += 1
             return true
         } else {
             return false
         }
+    }
+    
+    func getScore() -> Int {
+        return score
     }
     
     func getQuestionText() -> String {
@@ -38,7 +45,14 @@ struct QuizBrain {
         if questionNumber < quiz.count - 1 {
             return questionNumber += 1
         } else {
-            return questionNumber = 0
+            return reset()
+            
         }
     }
+    
+    mutating func reset() {
+        score = 0
+        questionNumber = 0
+    }
+    
 }
